@@ -97,10 +97,10 @@ const Navbar = () => {
       <div className="bg-white border-b border-primaryLight hidden md:block shadow-sm">
         <div className="max-w-7xl mx-auto px-4 flex gap-8 overflow-x-auto">
           {[
-            { name: "Kurtas & Suits", icon: "" },
-            { name: "Mens", icon: "" },
-            { name: "New Arrivals", icon: "" },
-            { name: "Sale", icon: "" },
+            { name: "Kurtas & Suits" },
+            { name: "Mens" },
+            { name: "New Arrivals" },
+            { name: "Sale" },
           ].map((cat) => (
             <Link
               key={cat.name}
@@ -116,10 +116,10 @@ const Navbar = () => {
       {mobileMenu && (
         <div className="bg-white md:hidden px-4 py-2 flex flex-col gap-2 shadow-lg">
           {[
-            { name: "Kurtas & Suits", icon: "" },
-            { name: "Mens", icon: "" },
-            { name: "New Arrivals", icon: "" },
-            { name: "Sale", icon: "" },
+            { name: "Kurtas & Suits" },
+            { name: "Mens" },
+            { name: "New Arrivals" },
+            { name: "Sale" },
           ].map((cat) => (
             <Link
               key={cat.name}
