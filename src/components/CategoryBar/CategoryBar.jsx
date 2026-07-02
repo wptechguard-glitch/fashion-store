@@ -43,7 +43,7 @@ const CategoryBar = () => {
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
               />
             </div>
-            <span className="mt-2 text-sm font-semibold text-gray-700 group-hover:text-flipblue">
+            <span className="mt-2 text-sm font-semibold text-gray-700 group-hover:text-primary">
               {cat.name}
             </span>
           </Link>

@@ -48,12 +48,12 @@ const Banner = () => {
             className="w-full h-full object-cover"
           />
           {/* OVERLAY TEXT */}
-          <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center text-white text-center">
-            <h2 className="text-3xl md:text-5xl font-bold">{banner.title}</h2>
-            <p className="text-xl md:text-2xl mt-2 text-flipyellow font-semibold">
+          <div className="absolute inset-0 bg-black bg-opacity-35 flex flex-col items-center justify-center text-white text-center px-4">
+            <h2 className="text-3xl md:text-5xl font-elegant font-bold tracking-wide">{banner.title}</h2>
+            <p className="text-xl md:text-2xl mt-2 text-gold font-semibold uppercase tracking-wider">
               {banner.subtitle}
             </p>
-            <button className="mt-4 bg-flipyellow text-black px-6 py-2 rounded font-bold hover:bg-yellow-400 transition">
+            <button className="mt-6 bg-gold text-black px-8 py-2.5 rounded-full font-bold hover:bg-yellow-500 transition shadow-md uppercase tracking-wider text-xs">
               Shop Now
             </button>
           </div>
@@ -66,8 +66,8 @@ const Banner = () => {
           <button
             key={index}
             onClick={() => setCurrent(index)}
-            className={`w-3 h-3 rounded-full transition ${
-              index === current ? "bg-flipyellow" : "bg-white"
+            className={`w-2.5 h-2.5 rounded-full transition ${
+              index === current ? "bg-gold" : "bg-white/60"
             }`}
           />
         ))}

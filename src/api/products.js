@@ -1,0 +1,370 @@
+export const products = [
+  {
+    id: 1,
+    name: "Women Printed Anarkali Kurta",
+    brand: "FashionStore",
+    price: 499,
+    originalPrice: 999,
+    rating: 4.3,
+    reviews: 1234,
+    images: [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+    category: "kurtas",
+    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
+    colors: ["Rose", "Navy", "Green", "Black"],
+    description: "Beautiful printed Anarkali kurta made from premium rayon fabric. Perfect for festivals, parties and casual occasions. Features intricate prints and comfortable fit.",
+    highlights: [
+      "100% Rayon fabric",
+      "Intricate floral printed work",
+      "Comfortable long fit",
+      "Machine washable",
+      "A-line flair styling"
+    ],
+    inStock: true
+  },
+  {
+    id: 2,
+    name: "Women Embroidered Straight Kurta",
+    brand: "FashionStore",
+    price: 699,
+    originalPrice: 1499,
+    rating: 4.1,
+    reviews: 856,
+    images: [
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+    category: "kurtas",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Teal", "Pink", "Mustard"],
+    description: "Classic straight-cut kurta featuring delicate thread embroidery on the neckline and sleeves. Handcrafted from lightweight cotton-blend fabric for all-day breathability.",
+    highlights: [
+      "Cotton-silk blend fabric",
+      "Exquisite neck embroidery",
+      "Straight fit with side slits",
+      "Hand wash recommended",
+      "Pair with leggings or palazzos"
+    ],
+    inStock: true
+  },
+  {
+    id: 3,
+    name: "Women Floral Print Kurta Set",
+    brand: "Aura Premium",
+    price: 899,
+    originalPrice: 1799,
+    rating: 4.4,
+    reviews: 2100,
+    images: [
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    category: "kurtas",
+    sizes: ["M", "L", "XL", "XXL"],
+    colors: ["Lavender", "Peach", "Mint"],
+    description: "A complete ethnic set featuring a floral printed straight kurta, matching pants, and a sheer georgette dupatta. Designed for elegant festive and formal gatherings.",
+    highlights: [
+      "3-Piece Kurta, Pants & Dupatta Set",
+      "Pure soft mulmul cotton",
+      "Graceful pastel floral motifs",
+      "Elasticated pants with pocket",
+      "Dry clean preferred"
+    ],
+    inStock: true
+  },
+  {
+    id: 4,
+    name: "Women Cotton A-Line Kurta",
+    brand: "Ethnic Wear",
+    price: 349,
+    originalPrice: 699,
+    rating: 4.0,
+    reviews: 431,
+    images: [
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    category: "kurtas",
+    sizes: ["XS", "S", "M", "L"],
+    colors: ["Sky Blue", "Yellow", "Coral"],
+    description: "Daily-wear basic A-line kurta. Crafted from 100% pure organic cotton, featuring simple wooden button details and comfortable three-quarter sleeves.",
+    highlights: [
+      "100% Organic Cotton",
+      "Casual A-line flowy fit",
+      "Front decorative buttons",
+      "Regular home machine wash",
+      "Super breathable fabric"
+    ],
+    inStock: true
+  },
+  {
+    id: 5,
+    name: "Women Palazzo Kurta Set",
+    brand: "FashionStore",
+    price: 999,
+    originalPrice: 1999,
+    rating: 4.6,
+    reviews: 3200,
+    images: [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+    category: "kurtas",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    colors: ["Crimson", "Royal Blue"],
+    description: "A gorgeous palazzo set with heavily printed border detailing. Includes an elegant straight kurta and extra-wide flair palazzo trousers.",
+    highlights: [
+      "Rayon flax blend",
+      "Foil print highlights",
+      "Comfortable wide-leg palazzo",
+      "Gentle cycle wash",
+      "Modern ethnic styling"
+    ],
+    inStock: true
+  },
+  {
+    id: 6,
+    name: "Men Slim Fit Casual Shirt",
+    brand: "UrbanClass",
+    price: 399,
+    originalPrice: 799,
+    rating: 4.5,
+    reviews: 2341,
+    images: [
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    category: "mens",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Navy Blue", "Olive Green", "Charcoal"],
+    description: "Stylish, solid casual shirt for men. Crafted from high-density stretch cotton to provide a structured slim silhouette while maintaining complete flexibility.",
+    highlights: [
+      "98% Cotton, 2% Elastane",
+      "Spread collar design",
+      "Curved hemline for untucked styling",
+      "Wrinkle-resistant fabric",
+      "Double stitched seams"
+    ],
+    inStock: false
+  },
+  {
+    id: 7,
+    name: "Men Regular Fit Cotton Kurta",
+    brand: "FashionStore",
+    price: 599,
+    originalPrice: 1199,
+    rating: 4.2,
+    reviews: 567,
+    images: [
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    category: "mens",
+    sizes: ["M", "L", "XL", "XXL"],
+    colors: ["Off-White", "Maroon", "Saffron"],
+    description: "Traditional men's short kurta suitable for religious and family ceremonies. Designed with full-length sleeves and side slits for a casual ethnic look.",
+    highlights: [
+      "100% Khadi Cotton",
+      "Comfortable regular fit",
+      "Mandarin collar styling",
+      "Handmade buttons",
+      "Made in India"
+    ],
+    inStock: true
+  },
+  {
+    id: 8,
+    name: "Men Solid Polo T-Shirt",
+    brand: "SportLuxury",
+    price: 299,
+    originalPrice: 599,
+    rating: 4.3,
+    reviews: 1890,
+    images: [
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+    category: "mens",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Jet Black", "Heather Grey", "Crimson"],
+    description: "Premium pique cotton polo shirt. Features ribbed collar, structured cuffs, and contrast logo embroidery for a classy smart-casual wardrobe staple.",
+    highlights: [
+      "100% Premium Pique Cotton",
+      "Ribbed collar and sleeve bands",
+      "High breathability construction",
+      "Fade-resistant colors",
+      "Three-button placket"
+    ],
+    inStock: true
+  },
+  {
+    id: 9,
+    name: "Men Formal Slim Fit Trouser",
+    brand: "UrbanClass",
+    price: 799,
+    originalPrice: 1599,
+    rating: 4.1,
+    reviews: 743,
+    images: [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+    category: "mens",
+    sizes: ["30", "32", "34", "36"],
+    colors: ["Slate Grey", "Black", "Beige"],
+    description: "Tailored formal trousers with sharp front creases. Ideal for office work and executive events. Mid-rise design with smooth-sliding metal closures.",
+    highlights: [
+      "Viscose-polyester blended fabric",
+      "Slim tapered silhouette",
+      "Dual button front waistband closure",
+      "Slanted side pockets & back welt pockets",
+      "Machine wash friendly"
+    ],
+    inStock: true
+  },
+  {
+    id: 10,
+    name: "Men Ethnic Straight Kurta",
+    brand: "FashionStore",
+    price: 699,
+    originalPrice: 1399,
+    rating: 4.4,
+    reviews: 1200,
+    images: [
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    category: "mens",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    colors: ["Deep Red", "Emerald", "Royal Gold"],
+    description: "Luxe silk-blend straight ethnic kurta for men. Perfect for Diwali, weddings, and traditional sangeet ceremonies. Detailed with premium self-design weaving.",
+    highlights: [
+      "Art Silk fabric blend",
+      "Detailed band collar",
+      "Dual side pockets",
+      "Rich color saturation",
+      "Dry clean only"
+    ],
+    inStock: true
+  },
+  {
+    id: 11,
+    name: "Women Rayon Printed Kurta",
+    brand: "FashionStore",
+    price: 449,
+    originalPrice: 899,
+    rating: 4.2,
+    reviews: 980,
+    images: [
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+    category: "new",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Indigo", "Maroon"],
+    description: "An elegant regular-wear printed kurta with block print designs all over. Crafted from fine-grade rayon yarn that falls naturally on any frame.",
+    highlights: [
+      "Premium Rayon fiber",
+      "Jaipuri block print motif",
+      "Breathable summer fabric",
+      "Cold water wash",
+      "Excellent drape quality"
+    ],
+    inStock: true
+  },
+  {
+    id: 12,
+    name: "Men Linen Casual Shirt",
+    brand: "SportLuxury",
+    price: 549,
+    originalPrice: 1099,
+    rating: 4.3,
+    reviews: 654,
+    images: [
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    category: "new",
+    sizes: ["M", "L", "XL"],
+    colors: ["Sky Blue", "Pastel Pink", "Off-White"],
+    description: "Linen-cotton blend resort shirt. High-durability thread count, featuring single button cuffs and relaxed fit for holiday or beach getaways.",
+    highlights: [
+      "55% Linen, 45% Cotton",
+      "Garment washed for supreme softness",
+      "Patch pocket on chest",
+      "Relaxed collar styling",
+      "Highly breathable weave"
+    ],
+    inStock: true
+  },
+  {
+    id: 13,
+    name: "Women Silk Blend Kurta",
+    brand: "Luxe Wear",
+    price: 1299,
+    originalPrice: 2599,
+    rating: 4.7,
+    reviews: 432,
+    images: [
+      "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+      "https://images.unsplash.com/photo-1614676471928-2ed0ad1061a4?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500",
+    category: "sale",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    colors: ["Emerald Green", "Hot Pink", "Midnight Navy"],
+    description: "Premium Banarasi art silk straight kurta with woven Zari borders and a delicate brocade pattern. Perfect for grand weddings and close family festivals.",
+    highlights: [
+      "Banarasi Silk-Blend fabric",
+      "Real Zari woven motifs",
+      "Deep inner lining for comfort",
+      "Side slit styling",
+      "Dry clean only"
+    ],
+    inStock: true
+  },
+  {
+    id: 14,
+    name: "Men Printed Kurta Pyjama Set",
+    brand: "FashionStore",
+    price: 899,
+    originalPrice: 1799,
+    rating: 4.5,
+    reviews: 1100,
+    images: [
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+      "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500",
+    ],
+    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=500",
+    category: "sale",
+    sizes: ["M", "L", "XL", "XXL"],
+    colors: ["Cobalt Blue", "Ruby Red"],
+    description: "Complete matching set containing a printed cotton kurta and solid-colored pyjama trousers. Offers high comfort and classic Indian design elements.",
+    highlights: [
+      "100% Pure Cambric Cotton",
+      "Comes with drawstring pyjama trousers",
+      "Handmade wood block look prints",
+      "Easy home machine wash",
+      "Comfort-fit silhouette"
+    ],
+    inStock: true
+  }
+];
