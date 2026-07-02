@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/userSlice";
 import { User, Lock, Mail, ArrowLeft, Phone, Eye, EyeOff, CheckCircle, Sparkles } from "lucide-react";
+import { auth, googleProvider, signInWithPopup } from "../../firebase";
 
-/* Inline SVG icons for social providers */
 const GoogleIcon = () => (
   <svg viewBox="0 0 24 24" className="w-5 h-5">
     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" fill="#4285F4"/>
@@ -35,7 +35,6 @@ const Register = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Password strength
   const getPasswordStrength = (pass) => {
     if (!pass) return { level: 0, label: "", color: "" };
     let score = 0;
@@ -57,7 +56,6 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     await new Promise((r) => setTimeout(r, 800));
 
     if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword) {
@@ -65,13 +63,11 @@ const Register = () => {
       setIsLoading(false);
       return;
     }
-
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       setIsLoading(false);
       return;
     }
-
     if (!agreed) {
       alert("Please agree to Terms of Service");
       setIsLoading(false);
@@ -85,19 +81,30 @@ const Register = () => {
         phone: formData.phone,
       })
     );
-
     setIsLoading(false);
     navigate("/");
   };
 
-  const handleGoogleRegister = () => {
-    dispatch(loginUser({ name: "Google User", email: "user@google.com", avatar: "google" }));
-    navigate("/");
+  const handleGoogleRegister = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      dispatch(
+        loginUser({
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+        })
+      );
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      alert("Google sign-up failed. Try again.");
+    }
   };
 
   return (
     <div className="min-h-screen flex">
-      {/* LEFT DECORATIVE PANEL (Desktop Only) */}
       <div className="hidden lg:flex lg:w-[45%] bg-gradient-to-br from-luxury via-primaryDark to-primary relative overflow-hidden items-center justify-center">
         <div className="absolute top-10 right-10 w-72 h-72 bg-gold/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 left-10 w-80 h-80 bg-primary/30 rounded-full blur-3xl" style={{ animation: "pulse 3s ease-in-out infinite reverse" }} />
@@ -114,7 +121,6 @@ const Register = () => {
             Join thousands of fashion enthusiasts. Get access to exclusive collections, early sales access, and personalized recommendations.
           </p>
 
-          {/* PERKS */}
           <div className="mt-10 space-y-3 text-left">
             {[
               "10% off on your first order",
@@ -131,21 +137,17 @@ const Register = () => {
         </div>
       </div>
 
-      {/* RIGHT - REGISTER FORM */}
       <div className="flex-1 bg-gray-50 flex flex-col justify-center py-8 px-4 sm:px-8 lg:px-16 xl:px-24 overflow-y-auto">
         <div className="max-w-md w-full mx-auto">
-          {/* BACK LINK */}
           <Link to="/" className="text-primary hover:text-primaryDark transition flex items-center gap-1.5 text-sm font-semibold mb-8 group">
             <ArrowLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" /> Back to store
           </Link>
 
-          {/* HEADING */}
           <div className="mb-6">
             <h2 className="font-elegant text-3xl font-bold text-gray-900">Create Account</h2>
             <p className="text-gray-400 text-sm mt-1">Join the FashionStore luxury community</p>
           </div>
 
-          {/* GOOGLE REGISTER */}
           <button
             onClick={handleGoogleRegister}
             className="w-full flex items-center justify-center gap-3 bg-white border border-gray-200 rounded-xl py-3 px-4 text-sm font-semibold text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:shadow-md transition-all duration-200 mb-6">
@@ -153,7 +155,6 @@ const Register = () => {
             <span>Sign up with Google</span>
           </button>
 
-          {/* DIVIDER */}
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200" /></div>
             <div className="relative flex justify-center text-xs uppercase">
@@ -162,7 +163,6 @@ const Register = () => {
           </div>
 
           <form onSubmit={handleRegister} className="space-y-4">
-            {/* FULL NAME */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-gray-600">Full Name *</label>
               <div className="relative flex items-center">
@@ -173,7 +173,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* EMAIL */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-gray-600">Email Address *</label>
               <div className="relative flex items-center">
@@ -184,7 +183,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* PHONE */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-gray-600">Phone Number <span className="text-gray-300 font-normal">(optional)</span></label>
               <div className="relative flex items-center">
@@ -195,7 +193,6 @@ const Register = () => {
               </div>
             </div>
 
-            {/* PASSWORD */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-gray-600">Password *</label>
               <div className="relative flex items-center">
@@ -207,7 +204,6 @@ const Register = () => {
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
-              {/* PASSWORD STRENGTH */}
               {formData.password && (
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex-1 flex gap-1">
@@ -222,7 +218,6 @@ const Register = () => {
               )}
             </div>
 
-            {/* CONFIRM PASSWORD */}
             <div className="flex flex-col gap-1.5">
               <label className="text-xs font-semibold text-gray-600">Confirm Password *</label>
               <div className="relative flex items-center">
@@ -245,7 +240,6 @@ const Register = () => {
               )}
             </div>
 
-            {/* TERMS */}
             <div className="flex items-start gap-2.5 text-xs text-gray-500 pt-1">
               <input type="checkbox" id="terms" checked={agreed} onChange={(e) => setAgreed(e.target.checked)}
                 className="accent-primary rounded w-3.5 h-3.5 mt-0.5" />
@@ -254,7 +248,6 @@ const Register = () => {
               </label>
             </div>
 
-            {/* SUBMIT */}
             <button
               type="submit"
               disabled={isLoading || !agreed}
@@ -268,13 +261,10 @@ const Register = () => {
                   <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   Creating Account...
                 </>
-              ) : (
-                "Create Account"
-              )}
+              ) : "Create Account"}
             </button>
           </form>
 
-          {/* FOOTER */}
           <p className="text-center text-sm text-gray-500 mt-8">
             Already have an account?{" "}
             <Link to="/login" className="text-primary hover:text-primaryDark font-bold transition">Sign In</Link>

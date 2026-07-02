@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/userSlice";
-import { ShoppingCart, Heart, User, Search, Menu, X, ChevronDown } from "lucide-react";
+import { Search, User, ShoppingCart, Heart, X, Menu, ChevronDown } from "lucide-react";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -40,8 +40,8 @@ const Navbar = () => {
   <p className="hidden sm:block">🚚 Free Delivery on orders above ₹499</p>
   <p className="block sm:hidden text-center w-full">🚚 Free Delivery above ₹499</p>
   <div className="hidden sm:flex gap-4">
-    <a href="#" className="hover:text-gold transition">Track Order</a>
-    <a href="#" className="hover:text-gold transition">Help</a>
+    <a href="/" className="hover:text-gold transition">Track Order</a>
+    <a href="/" className="hover:text-gold transition">Help</a>
   </div>
 </div>
 

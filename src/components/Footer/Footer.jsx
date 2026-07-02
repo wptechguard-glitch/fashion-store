@@ -45,7 +45,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-3 mt-2">
             {[FaFacebook, FaInstagram, FaTwitter, FaYoutube, FaPinterest].map((Icon, i) => (
-              <a key={i} href="#"
+              <a key={i} href="/"
                 className="bg-gray-700 hover:bg-primary p-2 rounded-full transition">
                 <Icon size={14} />
               </a>
@@ -87,7 +87,7 @@ const Footer = () => {
               "Track Order", "Return & Refund", "FAQ"
             ].map((item) => (
               <li key={item}>
-                <a href="#" className="hover:text-gold transition flex items-center gap-2">
+                <a href="/" className="hover:text-gold transition flex items-center gap-2">
                   <span className="text-primary">›</span> {item}
                 </a>
               </li>
@@ -137,9 +137,9 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
           <p>© 2024 FashionStore ✦ All rights reserved.</p>
           <div className="flex gap-4 mt-2 md:mt-0">
-            <a href="#" className="hover:text-gold transition">Privacy Policy</a>
-            <a href="#" className="hover:text-gold transition">Terms of Service</a>
-            <a href="#" className="hover:text-gold transition">Sitemap</a>
+            <a href="/" className="hover:text-gold transition">Privacy Policy</a>
+            <a href="/" className="hover:text-gold transition">Terms of Service</a>
+            <a href="/" className="hover:text-gold transition">Sitemap</a>
           </div>
         </div>
       </div>
