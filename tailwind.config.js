@@ -3,10 +3,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        flipblue: "#2874f0",  // Flipkart blue
-        flipyellow: "#f7c600", // Flipkart yellow
-      }
+        primary: "#b76e79",      // Rose Gold
+        primaryDark: "#9c5a63",  // Dark Rose Gold
+        primaryLight: "#f2d4d7", // Light Rose Pink
+        gold: "#d4af37",         // Gold accent
+        luxury: "#1a0a0c",       // Deep dark background
+      },
+      fontFamily: {
+        elegant: ["Playfair Display", "serif"],
+        body: ["Poppins", "sans-serif"],
+      },
     },
   },
   plugins: [],
-}
+};
