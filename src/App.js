@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import BottomNav from "./components/BottomNav/BottomNav";
 import Home from "./pages/Home/Home";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Cart from "./pages/Cart/Cart";
@@ -17,7 +18,7 @@ function App() {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50 flex flex-col justify-between">
-        <div>
+        <div className="pb-16 md:pb-0">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -33,6 +34,7 @@ function App() {
           </Routes>
         </div>
         <Footer />
+        <BottomNav />
       </div>
     </Router>
   );
