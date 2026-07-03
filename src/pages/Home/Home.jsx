@@ -18,14 +18,14 @@ const Home = () => {
       {/* CATEGORY CARDS */}
       <CategoryBar />
 
-      {/* KURTAS SECTION */}
-      <ProductSection title="Kurtas & Suits 👗" category="kurtas" />
+      {/* KURTIS SECTION */}
+      <ProductSection title="Kurtis & Suits 👗" category="kurtas" />
 
       {/* OFFER BANNER */}
       <OfferBanner />
 
-      {/* MENS SECTION */}
-      <ProductSection title="Mens Collection 👔" category="mens" />
+      {/* SAREES SECTION */}
+      <ProductSection title="Saree Collection 🧣" category="sarees" />
 
       {/* BRAND SECTION */}
       <BrandSection />

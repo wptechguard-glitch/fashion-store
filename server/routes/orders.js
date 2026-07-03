@@ -1,31 +1,45 @@
-const express = require('express');
-const fs = require('fs');
-const path = require('path');
-const authMiddleware = require('../middleware/auth');
-
+const express = require("express");
 const router = express.Router();
+const fs = require("fs");
+const path = require("path");
+const auth = require("../middleware/auth");
 
-const ordersFilePath = path.join(__dirname, '../data/orders.json');
+const ordersFilePath = path.join(__dirname, "../data/orders.json");
 
+// Helper to read orders
 const readOrders = () => {
   try {
-    const data = fs.readFileSync(ordersFilePath, 'utf-8');
-    return JSON.parse(data);
+    if (!fs.existsSync(ordersFilePath)) {
+      fs.writeFileSync(ordersFilePath, JSON.stringify([]));
+    }
+    const data = fs.readFileSync(ordersFilePath, "utf8");
+    return JSON.parse(data || "[]");
   } catch (error) {
+    console.error("Error reading orders file:", error);
     return [];
   }
 };
 
+// Helper to write orders
 const writeOrders = (orders) => {
-  fs.writeFileSync(ordersFilePath, JSON.stringify(orders, null, 2));
+  try {
+    fs.writeFileSync(ordersFilePath, JSON.stringify(orders, null, 2));
+  } catch (error) {
+    console.error("Error writing orders file:", error);
+  }
 };
 
-// POST / - Create a new order (protected)
-router.post('/', authMiddleware, (req, res) => {
+// Create Order
+router.post("/", auth, (req, res) => {
   try {
     const { items, shippingDetails, paymentMethod, totalAmount } = req.body;
 
-    const orderId = 'FS-ORD-' + Math.floor(Math.random() * 900000 + 100000);
+    if (!items || items.length === 0 || !shippingDetails || !paymentMethod || !totalAmount) {
+      return res.status(400).json({ success: false, message: "Missing order details" });
+    }
+
+    const orders = readOrders();
+    const orderId = `FS-ORD-${Math.floor(Math.random() * 900000 + 100000)}`;
 
     const newOrder = {
       orderId,
@@ -34,29 +48,33 @@ router.post('/', authMiddleware, (req, res) => {
       shippingDetails,
       paymentMethod,
       totalAmount,
-      date: new Date().toISOString(),
-      status: 'Processing',
+      status: "Processing",
+      date: new Date().toLocaleDateString("en-IN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
     };
 
-    const orders = readOrders();
     orders.push(newOrder);
     writeOrders(orders);
 
-    return res.status(201).json({ success: true, order: newOrder });
+    res.status(201).json(newOrder);
   } catch (error) {
-    return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    console.error("Create order error:", error);
+    res.status(500).json({ success: false, message: "Server error creating order" });
   }
 });
 
-// GET / - Get current user's orders (protected)
-router.get('/', authMiddleware, (req, res) => {
+// Get User's Orders
+router.get("/", auth, (req, res) => {
   try {
     const orders = readOrders();
-    const userOrders = orders.filter((order) => order.userId === req.user.id);
-
-    return res.json({ success: true, orders: userOrders });
+    const userOrders = orders.filter((o) => o.userId === req.user.id);
+    res.json(userOrders);
   } catch (error) {
-    return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    console.error("Get orders error:", error);
+    res.status(500).json({ success: false, message: "Server error fetching orders" });
   }
 });
 

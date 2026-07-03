@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/userSlice";
-import { Search, User, ShoppingCart, Heart, ChevronDown, X, Menu } from "lucide-react";
+import { Search, User, ShoppingCart, Heart, ChevronDown, X, Menu, Home, Grid } from "lucide-react";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenu, setMobileMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const cartItems = useSelector((state) => state.cart.items);
   const wishlistItems = useSelector((state) => state.wishlist.items);
@@ -73,7 +74,7 @@ const Navbar = () => {
             <div className="hidden md:flex flex-1 items-center bg-white rounded-full overflow-hidden shadow-md border-2 border-gold">
               <input
                 type="text"
-                placeholder="Search sarees, kurtis, mens wear..."
+                placeholder="Search kurtis, sarees, suits..."
                 className="w-full px-5 py-2 text-sm outline-none text-gray-700"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -164,18 +165,18 @@ const Navbar = () => {
           </div>
 
           {/* SEARCH BAR - mobile only, own row below */}
-          <div className="flex md:hidden items-center bg-white rounded-full overflow-hidden shadow-md border-2 border-gold mt-2.5">
+          <div className="flex md:hidden items-center bg-white rounded-full overflow-hidden shadow-md border-2 border-gold mt-2.5 w-full">
             <input
               type="text"
-              placeholder="Search sarees, kurtis, mens wear..."
-              className="w-full px-4 py-2 text-sm outline-none text-gray-700"
+              placeholder="Search kurtis, sarees, suits..."
+              className="flex-1 min-w-0 px-4 py-2 text-sm outline-none text-gray-700"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleSearch}
             />
             <button
               onClick={handleSearch}
-              className="bg-gold px-4 py-2 text-white hover:bg-yellow-600 transition">
+              className="bg-gold px-4 py-2 text-white hover:bg-yellow-600 transition shrink-0">
               <Search size={18} />
             </button>
           </div>
@@ -186,8 +187,8 @@ const Navbar = () => {
       <div className="bg-white border-b border-primaryLight hidden md:block shadow-sm">
         <div className="max-w-7xl mx-auto px-4 flex gap-8 overflow-x-auto">
           {[
-            { name: "Kurtas & Suits", path: "kurtas" },
-            { name: "Mens Collection", path: "mens" },
+            { name: "Kurtis & Suits", path: "kurtas" },
+            { name: "Sarees", path: "sarees" },
             { name: "New Arrivals", path: "new" },
             { name: "Hot Sale 🔥", path: "sale" },
           ].map((cat) => (
@@ -205,8 +206,8 @@ const Navbar = () => {
       {mobileMenu && (
         <div className="bg-white md:hidden px-4 py-2 flex flex-col gap-2 shadow-lg">
           {[
-            { name: "Kurtas & Suits", path: "kurtas" },
-            { name: "Mens Collection", path: "mens" },
+            { name: "Kurtis & Suits", path: "kurtas" },
+            { name: "Sarees", path: "sarees" },
             { name: "New Arrivals", path: "new" },
             { name: "Hot Sale 🔥", path: "sale" },
           ].map((cat) => (
@@ -220,6 +221,63 @@ const Navbar = () => {
           ))}
         </div>
       )}
+
+      {/* MOBILE BOTTOM NAVIGATION BAR */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] md:hidden flex justify-around items-center py-2 pb-3.5 z-40">
+        <Link to="/" className={`flex flex-col items-center gap-0.5 transition-colors text-[10px] font-semibold ${
+          location.pathname === "/" ? "text-primary" : "text-gray-400 hover:text-primary"
+        }`}>
+          <Home size={20} className={location.pathname === "/" ? "fill-primary/10 text-primary" : ""} />
+          <span>Home</span>
+        </Link>
+        <Link to="/category/all" className={`flex flex-col items-center gap-0.5 transition-colors text-[10px] font-semibold ${
+          location.pathname.startsWith("/category") ? "text-primary" : "text-gray-400 hover:text-primary"
+        }`}>
+          <Grid size={20} className={location.pathname.startsWith("/category") ? "fill-primary/10 text-primary" : ""} />
+          <span>Shop</span>
+        </Link>
+        <Link to="/wishlist" className={`flex flex-col items-center gap-0.5 transition-colors text-[10px] font-semibold ${
+          location.pathname === "/wishlist" ? "text-primary" : "text-gray-400 hover:text-primary"
+        }`}>
+          <div className="relative">
+            <Heart size={20} className={location.pathname === "/wishlist" ? "fill-primary/10 text-primary" : ""} />
+            {wishlistCount > 0 && (
+              <span className="absolute -top-1 -right-2 bg-gold text-black text-[9px] rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold">
+                {wishlistCount}
+              </span>
+            )}
+          </div>
+          <span>Wishlist</span>
+        </Link>
+        <Link to="/cart" className={`flex flex-col items-center gap-0.5 transition-colors text-[10px] font-semibold ${
+          location.pathname === "/cart" ? "text-primary" : "text-gray-400 hover:text-primary"
+        }`}>
+          <div className="relative">
+            <ShoppingCart size={20} className={location.pathname === "/cart" ? "fill-primary/10 text-primary" : ""} />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-2 bg-gold text-black text-[9px] rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold">
+                {cartCount}
+              </span>
+            )}
+          </div>
+          <span>Cart</span>
+        </Link>
+        {isLoggedIn ? (
+          <Link to="/profile" className={`flex flex-col items-center gap-0.5 transition-colors text-[10px] font-semibold ${
+            location.pathname === "/profile" ? "text-primary" : "text-gray-400 hover:text-primary"
+          }`}>
+            <User size={20} className={location.pathname === "/profile" ? "fill-primary/10 text-primary" : ""} />
+            <span>Profile</span>
+          </Link>
+        ) : (
+          <Link to="/login" className={`flex flex-col items-center gap-0.5 transition-colors text-[10px] font-semibold ${
+            ["/login", "/register"].includes(location.pathname) ? "text-primary" : "text-gray-400 hover:text-primary"
+          }`}>
+            <User size={20} className={["/login", "/register"].includes(location.pathname) ? "fill-primary/10 text-primary" : ""} />
+            <span>Login</span>
+          </Link>
+        )}
+      </div>
 
     </nav>
   );

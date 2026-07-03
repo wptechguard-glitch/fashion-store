@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../redux/cartSlice";
 import { addOrder } from "../../redux/userSlice";
 import { ArrowLeft, CreditCard, Shield, Truck } from "lucide-react";
+import { createOrderApi } from "../../api/authApi";
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Checkout = () => {
   const items = useSelector((state) => state.cart.items);
   const couponApplied = useSelector((state) => state.cart.couponApplied);
   const discountPercentage = useSelector((state) => state.cart.discountPercentage);
+  const { isLoggedIn } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -23,6 +25,7 @@ const Checkout = () => {
   });
 
   const [paymentMethod, setPaymentMethod] = useState("upi");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const subtotal = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const savings = items.reduce((acc, item) => acc + (item.originalPrice - item.price) * item.quantity, 0);
@@ -35,7 +38,7 @@ const Checkout = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmitOrder = (e) => {
+  const handleSubmitOrder = async (e) => {
     e.preventDefault();
 
     // Basic Validation
@@ -56,10 +59,10 @@ const Checkout = () => {
       return;
     }
 
-    const orderId = `FS-ORD-${Math.floor(Math.random() * 900000 + 100000)}`;
+    setIsSubmitting(true);
 
-    const newOrder = {
-      orderId,
+    const newOrderLocal = {
+      orderId: `FS-ORD-${Math.floor(Math.random() * 900000 + 100000)}`,
       items: [...items],
       shippingDetails: { ...formData },
       paymentMethod,
@@ -71,12 +74,41 @@ const Checkout = () => {
       }),
     };
 
-    // Save to user orders and clear active cart
-    dispatch(addOrder(newOrder));
-    dispatch(clearCart());
+    try {
+      if (isLoggedIn) {
+        const response = await createOrderApi({
+          items: items.map((i) => ({
+            id: i.id,
+            name: i.name,
+            price: i.price,
+            quantity: i.quantity,
+            size: i.size,
+            color: i.color,
+            image: i.image,
+          })),
+          shippingDetails: formData,
+          paymentMethod,
+          totalAmount: total,
+        });
 
-    // Redirect to success page
-    navigate("/order-success", { state: { order: newOrder } });
+        // Save backend order response
+        dispatch(addOrder(response.data));
+        dispatch(clearCart());
+        navigate("/order-success", { state: { order: response.data } });
+      } else {
+        // Fallback for guests / offline
+        dispatch(addOrder(newOrderLocal));
+        dispatch(clearCart());
+        navigate("/order-success", { state: { order: newOrderLocal } });
+      }
+    } catch (err) {
+      console.error("Order creation api failed, falling back to local storage:", err);
+      dispatch(addOrder(newOrderLocal));
+      dispatch(clearCart());
+      navigate("/order-success", { state: { order: newOrderLocal } });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (items.length === 0) {

@@ -22,9 +22,9 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Enter your email..."
-              className="flex-1 md:w-72 px-4 py-2 rounded-full text-sm outline-none text-gray-800"
+              className="flex-1 min-w-0 md:w-72 px-4 py-2 rounded-full text-sm outline-none text-gray-800"
             />
-            <button className="bg-gold text-black px-6 py-2 rounded-full font-semibold text-sm hover:bg-yellow-500 transition">
+            <button className="bg-gold text-black px-6 py-2 rounded-full font-semibold text-sm hover:bg-yellow-500 transition shrink-0">
               Subscribe
             </button>
           </div>
@@ -61,8 +61,8 @@ const Footer = () => {
           <ul className="space-y-2 text-sm">
             {[
               { name: "Home", path: "/" },
-              { name: "Kurtas & Suits", path: "/category/kurtas" },
-              { name: "Mens Wear", path: "/category/mens" },
+              { name: "Kurtis & Suits", path: "/category/kurtas" },
+              { name: "Sarees", path: "/category/sarees" },
               { name: "New Arrivals", path: "/category/new" },
               { name: "Sale 🔥", path: "/category/sale" },
             ].map((link) => (

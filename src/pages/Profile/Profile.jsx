@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../../redux/userSlice";
+import { logoutUser, setOrders, loginUser } from "../../redux/userSlice";
+import { getOrdersApi, updateProfileApi } from "../../api/authApi";
 import {
   User, LogOut, ArrowLeft, ShoppingBag, Package, Phone, Mail, MapPin,
   Heart, Settings, Gift, Shield, ChevronRight, Crown, Truck, Star,
@@ -14,6 +15,29 @@ const Profile = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   const [activeSection, setActiveSection] = useState("overview");
+  const [fullName, setFullName] = useState(currentUser?.name || "");
+  const [phone, setPhone] = useState(currentUser?.phone || "");
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateSuccess, setUpdateSuccess] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      getOrdersApi()
+        .then((res) => {
+          dispatch(setOrders(res.data));
+        })
+        .catch((err) => {
+          console.error("Failed to load user orders:", err);
+        });
+    }
+  }, [isLoggedIn, dispatch]);
+
+  useEffect(() => {
+    if (currentUser) {
+      setFullName(currentUser.name || "");
+      setPhone(currentUser.phone || "");
+    }
+  }, [currentUser]);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -363,7 +387,69 @@ const Profile = () => {
                 <h2 className="font-elegant text-lg font-bold text-gray-800 mb-5 pb-3 border-b border-gray-100 flex items-center gap-2">
                   <Settings size={18} className="text-primary" /> Account Settings
                 </h2>
+                
+                {/* UPDATE DETAILS FORM */}
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    setIsUpdating(true);
+                    setUpdateSuccess(false);
+                    try {
+                      const res = await updateProfileApi({ fullName, phone });
+                      if (res.data.success) {
+                        dispatch(loginUser({ user: res.data.user, token: localStorage.getItem("fs_token") }));
+                        setUpdateSuccess(true);
+                      }
+                    } catch (err) {
+                      console.error(err);
+                      alert("Failed to update profile details");
+                    } finally {
+                      setIsUpdating(false);
+                    }
+                  }}
+                  className="mb-6 space-y-4 pb-6 border-b border-gray-100"
+                >
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Personal Details</h3>
+                  
+                  {updateSuccess && (
+                    <p className="text-xs text-green-600 font-semibold bg-green-50 p-2.5 rounded-lg border border-green-200">
+                      ✓ Profile details updated successfully!
+                    </p>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold text-gray-500">Full Name</label>
+                      <input
+                        type="text"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                        className="border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-primary transition"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <label className="text-xs font-semibold text-gray-500">Phone Number</label>
+                      <input
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="border border-gray-200 rounded-lg px-4 py-2 text-sm outline-none focus:border-primary transition"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isUpdating}
+                    className="bg-primary text-white text-xs font-semibold px-6 py-2.5 rounded-lg hover:bg-primaryDark transition disabled:bg-gray-300"
+                  >
+                    {isUpdating ? "Saving..." : "Save Changes"}
+                  </button>
+                </form>
+
                 <div className="space-y-4">
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Preferences</h3>
                   {[
                     { label: "Email Notifications", desc: "Receive order updates and offers", defaultOn: true },
                     { label: "SMS Alerts", desc: "Get delivery updates via SMS", defaultOn: true },

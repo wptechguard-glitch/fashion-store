@@ -10,8 +10,8 @@ const banners = [
   {
     id: 2,
     image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1200",
-    title: "Mens Wear Sale",
-    subtitle: "Starting from ₹299",
+    title: "Elegant Saree Collection",
+    subtitle: "Starting from ₹599",
   },
   {
     id: 3,
