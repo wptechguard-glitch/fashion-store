@@ -88,7 +88,7 @@ const Navbar = () => {
             </div>
 
             {/* RIGHT ICONS */}
-            <div className="flex items-center gap-3 sm:gap-5 text-white ml-auto order-3 md:order-none">
+            <div className="hidden md:flex items-center gap-3 sm:gap-5 text-white ml-auto order-3 md:order-none">
 
               {/* USER / PROFILE / LOGIN */}
               {isLoggedIn ? (
